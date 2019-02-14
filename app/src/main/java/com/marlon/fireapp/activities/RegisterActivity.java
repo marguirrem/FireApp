@@ -52,10 +52,14 @@ public class RegisterActivity extends AppCompatActivity {
                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
-                       Toast.makeText(RegisterActivity.this, "Registrado con exito!", Toast.LENGTH_SHORT).show();
-                       Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                       startActivity(intent);
-                       finish();
+                       if(task.isSuccessful()){
+                           Toast.makeText(RegisterActivity.this, "Registrado con exito!", Toast.LENGTH_SHORT).show();
+                           Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                           startActivity(intent);
+                           finish();
+                       }else {
+                           Toast.makeText(RegisterActivity.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
+                       }
 
                    }
                });
