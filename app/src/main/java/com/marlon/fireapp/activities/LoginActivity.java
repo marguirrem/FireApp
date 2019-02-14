@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
 
-                auth.si
+                
             }
         });
 
