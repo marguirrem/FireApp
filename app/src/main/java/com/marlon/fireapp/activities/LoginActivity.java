@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,6 +28,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
 
+        if(auth.getCurrentUser() != null){
+            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
         etEmail = findViewById(R.id.log_etEmail);
         etPass  = findViewById(R.id.log_etPass);
 
@@ -41,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
-
 
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(LoginActivity.this, "Debes ingresar un email", Toast.LENGTH_SHORT).show();
@@ -55,19 +57,19 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+
                                 if(task.isSuccessful()){
-                                    Toast.makeText(LoginActivity.this, "Login con exito", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }else{
                                     Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
                                 }
-
                             }
                         });
-
-
             }
         });
-
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
